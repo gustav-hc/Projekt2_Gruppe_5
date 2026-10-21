@@ -9,6 +9,10 @@
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+
     <ul>
         <li th:each="user : ${users}" th:text="${user.name}">Navn</li>
     </ul>

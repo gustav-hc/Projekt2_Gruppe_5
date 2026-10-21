@@ -41,4 +41,10 @@ public class UserController {
         model.addAttribute("error", "Forkert mail eller password");
         return "login";
     }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
 }
