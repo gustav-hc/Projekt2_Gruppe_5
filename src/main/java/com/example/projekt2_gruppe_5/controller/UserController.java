@@ -47,4 +47,26 @@ public class UserController {
         session.invalidate();
         return "redirect:/login";
     }
+
+    @GetMapping("/register")
+    public String showRegister() {
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String doRegister(@RequestParam String name,
+                             @RequestParam String email,
+                             @RequestParam String password,
+                             Model model) {
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
+
+        if (userService.register(user)) {
+            return "redirect:/login";
+        }
+        model.addAttribute("error", "Ugyldig oplysninger");
+        return "register";
+    }
 }

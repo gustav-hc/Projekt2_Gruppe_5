@@ -62,5 +62,17 @@ public class UserRepository {
         }
     }
 
+    public void save(User user) {
+        String sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+    }
 }

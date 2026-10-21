@@ -3,6 +3,7 @@ package com.example.projekt2_gruppe_5.service;
 import com.example.projekt2_gruppe_5.model.User;
 import com.example.projekt2_gruppe_5.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -30,4 +31,15 @@ public class UserService {
         }
         return null;
     }
+
+    public boolean register(User user) {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            return false;
+        }
+
+        userRepository.save(user);
+
+        return true;
+    }
+
 }
