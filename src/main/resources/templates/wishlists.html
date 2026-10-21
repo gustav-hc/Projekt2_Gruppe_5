@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="da" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mine ønskesedler</title>
+</head>
+<body>
+<h1>Mine ønskesedler</h1>
+
+<p th:if="${#lists.isEmpty(wishlists)}">Du har ingen ønskesedler endnu.</p>
+
+<ul>
+    <li th:each="wishlist : ${wishlists}" th:text="${wishlist.title}">Titel</li>
+</ul>
+</body>
+</html>
