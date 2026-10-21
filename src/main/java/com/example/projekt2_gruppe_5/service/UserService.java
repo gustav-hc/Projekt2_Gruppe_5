@@ -17,4 +17,17 @@ public class UserService {
     public List<User> callFindAll() {
         return userRepository.findAll();
     }
+
+    public User login(String email, String password) {
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            return null;
+        }
+
+        if (user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
+    }
 }
