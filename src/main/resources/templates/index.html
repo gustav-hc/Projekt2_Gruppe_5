@@ -1,20 +1,23 @@
-<!doctype html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WishList</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
-</head>
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Forside')}"></head>
 <body>
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+<header th:replace="~{fragments/layout :: header}"></header>
 
-    <ul>
-        <li th:each="user : ${users}" th:text="${user.name}">Navn</li>
-    </ul>
+<main class="container">
+    <section class="card">
+        <h1>Velkommen til WishCloud</h1>
+
+        <ul>
+            <li th:each="user : ${users}" th:text="${user.name}">Navn</li>
+        </ul>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn">Log ud</button>
+        </form>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
 </body>
 </html>

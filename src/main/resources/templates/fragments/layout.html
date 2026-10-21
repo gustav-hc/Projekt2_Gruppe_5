@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' | WishCloud'">WishCloud</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:fragment="header" class="site-header">
+    <a th:href="@{/}" class="logo">☁️ WishCloud</a>
+    <nav>
+        <a th:href="@{/wishlists}">Mine ønskesedler</a>
+        <a th:href="@{/login}">Log ind</a>
+        <a th:href="@{/register}" class="btn btn-small">Opret profil</a>
+    </nav>
+</header>
+
+<footer th:fragment="footer" class="site-footer">
+    <p>WishCloud · Make your wishes come true.</p>
+</footer>
+</body>
+</html>

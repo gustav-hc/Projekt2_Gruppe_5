@@ -1,23 +1,27 @@
-<!doctype html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Log ind')}"></head>
 <body>
-    <form th:action="@{/login}" method="post">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="email" value="test@test.dk">
+<header th:replace="~{fragments/layout :: header}"></header>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" value="1234">
+<main class="container">
+    <section class="card">
+        <h1>Log ind</h1>
 
-        <button type="submit">Login</button>
-    </form>
+        <p th:if="${error}" th:text="${error}" class="error">Fejl</p>
 
-    <p th:if="${error}" th:text="${error}">Fejl</p>
+        <form th:action="@{/login}" method="post">
+            <label for="email">E-mail</label>
+            <input type="text" id="email" name="email" value="test@test.dk">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" value="1234">
+
+            <button type="submit" class="btn">Log ind</button>
+        </form>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
 </body>
 </html>
