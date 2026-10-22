@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Ønskeseddel')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="container">
+    <section class="card">
+        <h1 th:text="${wishlist.title}">Titel</h1>
+
+        <p th:if="${#lists.isEmpty(wishes)}">Der er ingen ønsker på sedlen endnu.</p>
+
+        <ul>
+            <li th:each="wish : ${wishes}">
+                <strong th:text="${wish.name}">Navn</strong>
+                <span th:if="${wish.price != null}" th:text="${wish.price} + ' kr.'">Pris</span>
+            </li>
+        </ul>
+
+        <a th:href="@{/wishlists}" class="btn">Tilbage til mine ønskesedler</a>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

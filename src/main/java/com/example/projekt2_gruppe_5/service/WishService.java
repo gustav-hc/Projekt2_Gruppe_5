@@ -4,6 +4,8 @@ import com.example.projekt2_gruppe_5.model.Wish;
 import com.example.projekt2_gruppe_5.repository.WishRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WishService {
     private final WishRepository wishRepository;
@@ -18,6 +20,10 @@ public class WishService {
         }
         wishRepository.save(wish);
         return true;
+    }
+
+    public List<Wish> findByWishlistId(int wishlistId) {
+        return wishRepository.findByWishlistId(wishlistId);
     }
 
 }

@@ -17,8 +17,9 @@
         <p th:if="${#lists.isEmpty(wishlists)}">Du har ingen ønskesedler endnu.</p>
 
         <ul>
-            <li th:each="wishlist : ${wishlists}" th:text="${wishlist.title}">Titel</li>
-        </ul>
+            <li th:each="wishlist : ${wishlists}">
+                <a th:href="@{/wishlists/{id}(id=${wishlist.id})}" th:text="${wishlist.title}">Titel</a>
+            </li>        </ul>
     </section>
 </main>
 

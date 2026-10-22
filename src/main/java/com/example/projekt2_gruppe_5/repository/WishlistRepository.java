@@ -51,6 +51,23 @@ public class WishlistRepository {
         }
     }
 
+    public Wishlist findById(int id) {
+        String sql = "SELECT id, title, user_id, share_token FROM wishlist WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Kunne ikke hente ønskeseddel " + id, e);
+        }
+    }
+
     private Wishlist mapRow(ResultSet rs) throws SQLException {
         Wishlist wishlist = new Wishlist();
         wishlist.setId(rs.getInt("id"));
