@@ -8,12 +8,18 @@
 </head>
 <body>
 <header th:fragment="header" class="site-header">
+    <form th:action="@{/logout}" method="post" th:if="${session.user != null}">
+        <button type="submit" class="btn">Log ud</button>
+    </form>
+
     <a th:href="@{/}" class="logo">☁️ WishCloud</a>
     <nav>
-        <a th:href="@{/wishlists}">Mine ønskesedler</a>
-        <a th:href="@{/login}">Log ind</a>
-        <a th:href="@{/register}" class="btn btn-small">Opret profil</a>
+        <a th:href="@{/wishlists}" th:if="${session.user != null}">Mine ønskesedler</a>
+        <a th:href="@{/login}" th:if="${session.user == null}">Log ind</a>
+        <a th:href="@{/register}" class="btn btn-small" th:if="${session.user == null}">Opret profil</a>
     </nav>
+
+
 </header>
 
 <footer th:fragment="footer" class="site-footer">

@@ -36,7 +36,7 @@ public class UserController {
         User user = userService.login(email, password);
         if (user != null) {
             session.setAttribute("user", user);
-            return "redirect:/";
+            return "redirect:/wishlists";
         }
         model.addAttribute("error", "Forkert mail eller password");
         return "login";

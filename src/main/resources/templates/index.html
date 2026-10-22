@@ -12,9 +12,7 @@
             <li th:each="user : ${users}" th:text="${user.name}">Navn</li>
         </ul>
 
-        <form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn">Log ud</button>
-        </form>
+
     </section>
 </main>
 

@@ -24,4 +24,6 @@ public class WishlistController {
         model.addAttribute("wishlists", wishlistService.findByUserId(user.getId()));
         return "wishlists";
     }
+
+
 }
