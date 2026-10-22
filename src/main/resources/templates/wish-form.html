@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Tilføj ønske')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="container">
+
+    <section class="card">
+        <h1>Tilføj ønske</h1>
+
+
+        <p th:if="${error}" th:text="${error}" class="error">Fejl</p>
+
+        <form th:action="@{/wishes}" method="post" >
+            <label for="name">Navn</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="description">Beskrivelse</label>
+            <input type="text" id="description" name="description">
+
+            <label for="price">Pris</label>
+            <input type="number" id="price" name="price" step="0.01">
+
+            <label for="link">Link</label>
+            <input type="url" id="link" name="link">
+
+            <label for="wishlistId">WishlistId</label>
+            <input type="hidden" id="wishlistId" name="wishlistId" th:value="${wishlistId}">
+
+            <button type="submit" class="btn">Opret ønske</button>
+        </form>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
