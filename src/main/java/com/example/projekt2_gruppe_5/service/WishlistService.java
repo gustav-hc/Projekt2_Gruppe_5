@@ -17,4 +17,15 @@ public class WishlistService {
     public List<Wishlist> findByUserId(int userId) {
         return wishlistRepository.findByUserId(userId);
     }
+
+    public void createWishlist(String title, int userId) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("Skriv venligst en titel!");
+        }
+
+        Wishlist wishlist = new Wishlist();
+        wishlist.setTitle(title);
+        wishlist.setUserId(userId);
+        wishlistRepository.save(wishlist);
+    }
 }

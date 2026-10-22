@@ -8,6 +8,12 @@
     <section class="card">
         <h1>Mine ønskesedler</h1>
 
+        <form th:action="@{/wishlists}" method="post">
+            <label for="title">Titel</label>
+            <input type="text" id="title" name="title" placeholder="fx Fødselsdag" required>
+            <button type="submit" class="btn">Opret ønskeseddel</button>
+        </form>
+
         <p th:if="${#lists.isEmpty(wishlists)}">Du har ingen ønskesedler endnu.</p>
 
         <ul>
