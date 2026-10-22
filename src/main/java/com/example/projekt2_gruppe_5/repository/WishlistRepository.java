@@ -37,6 +37,20 @@ public class WishlistRepository {
         return wishlists;
     }
 
+
+    public void save(Wishlist wishlist){
+        String sql ="INSERT INTO wishlist (title, user_id) VALUES (?, ?)";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, wishlist.getTitle());
+            statement.setInt(2, wishlist.getUserId());
+            statement.executeUpdate();
+        }  catch (SQLException e) {
+            throw new RuntimeException("Kunne ikke gemme ønskeseddel", e);
+        }
+    }
+
     private Wishlist mapRow(ResultSet rs) throws SQLException {
         Wishlist wishlist = new Wishlist();
         wishlist.setId(rs.getInt("id"));
