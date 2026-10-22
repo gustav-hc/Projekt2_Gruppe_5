@@ -1,5 +1,6 @@
 package com.example.projekt2_gruppe_5.repository;
 
+import com.example.projekt2_gruppe_5.model.Wish;
 import com.example.projekt2_gruppe_5.model.Wishlist;
 import org.springframework.stereotype.Repository;
 
@@ -24,9 +25,9 @@ public class WishlistRepository {
         String sql = "SELECT id, title, user_id, share_token FROM wishlist WHERE user_id = ?";
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, userId);
-            try (ResultSet rs = statement.executeQuery()) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     wishlists.add(mapRow(rs));
                 }
@@ -42,10 +43,10 @@ public class WishlistRepository {
         String sql ="INSERT INTO wishlist (title, user_id) VALUES (?, ?)";
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, wishlist.getTitle());
-            statement.setInt(2, wishlist.getUserId());
-            statement.executeUpdate();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, wishlist.getTitle());
+            ps.setInt(2, wishlist.getUserId());
+            ps.executeUpdate();
         }  catch (SQLException e) {
             throw new RuntimeException("Kunne ikke gemme ønskeseddel", e);
         }
@@ -76,4 +77,40 @@ public class WishlistRepository {
         wishlist.setShareToken(rs.getString("share_token"));
         return wishlist;
     }
+
+    public Wishlist findByShareToken(String token) {
+        String sql = "SELECT id, title, user_id, share_token FROM wishlist WHERE share_token = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, token);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);
+                }
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Kunne ikke hente ønskeseddel med link", e);
+        }
+    }
+
+    public void saveShareToken(int wishlistId, String token) {
+        String sql = "UPDATE wishlist SET share_token = ? WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, token);
+            ps.setInt(2, wishlistId);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Kunne ikke oprette link", e);
+        }
+    }
+
 }
