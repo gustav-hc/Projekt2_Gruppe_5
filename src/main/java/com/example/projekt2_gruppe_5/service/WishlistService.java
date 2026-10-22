@@ -28,4 +28,8 @@ public class WishlistService {
         wishlist.setUserId(userId);
         wishlistRepository.save(wishlist);
     }
+
+    public Wishlist findById(int id) {
+        return wishlistRepository.findById(id);
+    }
 }
