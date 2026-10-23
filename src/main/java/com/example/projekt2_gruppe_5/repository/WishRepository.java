@@ -5,6 +5,7 @@ import com.example.projekt2_gruppe_5.model.Wish;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import javax.xml.catalog.Catalog;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -103,7 +104,33 @@ public class WishRepository {
         } catch (SQLException e) {
             throw new RuntimeException("Kunne ikke reservere ønske", e);
         }
+        }
+    public Wish findById(int id) {
+        String sql = "SELECT id, name, description, price, link, wishlist_id FROM wish WHERE id = ?";
 
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            try(ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+
+                    Wish wish = new Wish();
+                    wish.setId(rs.getInt("id"));
+                    wish.setName(rs.getString("name"));
+                    wish.setDescription(rs.getString("description"));
+                    wish.setPrice(rs.getBigDecimal("price"));
+                    wish.setLink(rs.getString("link"));
+                    wish.setWishlistId(rs.getInt("wishlist_id"));
+
+                    return wish;
+                }
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Kunne ikke hente ønske", e);
+        }
 
     }
 }

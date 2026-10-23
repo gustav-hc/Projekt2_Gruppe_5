@@ -35,4 +35,7 @@ public class WishService {
         return wishRepository.reserve(wishId);
     }
 
+    public Wish findById(int id) {
+       return wishRepository.findById(id);
+    }
 }

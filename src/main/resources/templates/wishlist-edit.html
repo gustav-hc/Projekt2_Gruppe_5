@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Rediger ønskeseddel')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="container">
+    <section class="card">
+        <h1>Rediger ønskeseddel</h1>
+
+        <form th:action="@{/wishlists/{id}/edit(id=${wishlist.id})}" method="post">
+            <label for="title">Titel</label>
+            <input type="text" id="title" name="title" th:value="${wishlist.title}" required>
+            <button type="submit" class="btn">Gem ændringer</button>
+        </form>
+
+        <form th:action="@{/wishlists/{id}/delete(id=${wishlist.id})}" method="post">
+            <button type="submit" class="btn">Slet ønskeseddel</button>
+        </form>
+
+        <a th:href="@{/wishlists/{id}(id=${wishlist.id})}" class="btn">Annuller</a>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

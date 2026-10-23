@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Log ind')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="container">
+    <section class="card">
+        <h1 th:text="${wishlist.title}">Titel</h1>
+
+        <p th:if="${#lists.isEmpty(wishes)}">Ingen ønsker endnu</p>
+
+
+        <ul>
+            <li th:each="wish : ${wishes}">
+                <strong th:text="${wish.name}">Navn</strong>
+                <span th:text="${wish.price} + ' kr.'">Pris</span>
+            </li>
+        </ul>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

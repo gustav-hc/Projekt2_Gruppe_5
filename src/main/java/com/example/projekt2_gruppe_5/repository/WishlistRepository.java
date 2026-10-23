@@ -112,5 +112,29 @@ public class WishlistRepository {
             throw new RuntimeException("Kunne ikke oprette link", e);
         }
     }
+    public void update(Wishlist wishlist) {
+        String sql = "UPDATE wishlist SET title = ? WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, wishlist.getTitle());
+            statement.setInt(2, wishlist.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Kunne ikke opdatere ønskeseddel", e);
+        }
+    }
+
+    public void deleteById(int id) {
+        String sql = "DELETE FROM wishlist WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Kunne ikke slette ønskeseddel", e);
+        }
+    }
 
     }
