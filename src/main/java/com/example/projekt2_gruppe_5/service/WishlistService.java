@@ -43,4 +43,18 @@ public class WishlistService {
     public Wishlist findByShareToken(String token) {
         return wishlistRepository.findByShareToken(token);
     }
+
+    public void updateTitle(int id, String title) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("Skriv venligst en titel!");
+        }
+
+        Wishlist wishlist = wishlistRepository.findById(id);
+        wishlist.setTitle(title);
+        wishlistRepository.update(wishlist);
+    }
+
+    public void deleteWishlist(int id) {
+        wishlistRepository.deleteById(id);
+    }
 }

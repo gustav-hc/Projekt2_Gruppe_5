@@ -62,6 +62,56 @@ public class WishlistController {
         return "wishlist";
     }
 
+    @GetMapping("/wishlists/{id}/edit")
+    public String showEditForm(@PathVariable int id, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Wishlist wishlist = wishlistService.findById(id);
+        if (wishlist == null || wishlist.getUserId() != user.getId()) {
+            return "redirect:/wishlists";
+        }
+
+        model.addAttribute("wishlist", wishlist);
+        return "wishlist-edit";
+    }
+
+    @PostMapping("/wishlists/{id}/edit")
+    public String updateWishlist(@PathVariable int id,
+                                 @RequestParam String title,
+                                 HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Wishlist wishlist = wishlistService.findById(id);
+        if (wishlist == null || wishlist.getUserId() != user.getId()) {
+            return "redirect:/wishlists";
+        }
+
+        wishlistService.updateTitle(id, title);
+        return "redirect:/wishlists/" + id;
+    }
+
+    @PostMapping("/wishlists/{id}/delete")
+    public String deleteWishlist(@PathVariable int id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Wishlist wishlist = wishlistService.findById(id);
+        if (wishlist == null || wishlist.getUserId() != user.getId()) {
+            return "redirect:/wishlists";
+        }
+
+        wishlistService.deleteWishlist(id);
+        return "redirect:/wishlists";
+    }
+
     @PostMapping("/wishlists/{id}/share")
     public String shareWishList(@PathVariable int id, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
