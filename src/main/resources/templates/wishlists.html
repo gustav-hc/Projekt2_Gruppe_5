@@ -8,6 +8,13 @@
     <section class="card">
         <h1>Mine ønskesedler</h1>
 
+        <div th:if="${shareLink}">
+            <label for="link">Del dette link</label>
+            <input type="text" id="link" th:value="${shareLink}" readonly>
+        </div>
+
+
+
         <form th:action="@{/wishlists}" method="post">
             <label for="title">Titel</label>
             <input type="text" id="title" name="title" placeholder="fx Fødselsdag" required>
@@ -19,7 +26,11 @@
         <ul>
             <li th:each="wishlist : ${wishlists}">
                 <a th:href="@{/wishlists/{id}(id=${wishlist.id})}" th:text="${wishlist.title}">Titel</a>
-            </li>        </ul>
+                <form th:action="@{/wishlists/{id}/share(id=${wishlist.id})}" method="post">
+                    <button type="submit">Del</button>
+                </form>
+            </li>
+        </ul>
     </section>
 </main>
 

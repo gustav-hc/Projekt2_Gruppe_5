@@ -58,4 +58,18 @@ public class WishlistController {
         model.addAttribute("wishes", wishService.findByWishlistId(id));
         return "wishlist";
     }
+
+    @PostMapping("/wishlists/{id}/share")
+    public String shareWishList(@PathVariable int id, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        String token = wishlistService.createShareToken(id);
+        String link = "http://localhost:8080/shared/" + token;
+
+        model.addAttribute("shareLink", link);
+        model.addAttribute("wishlists", wishlistService.findById(user.getId()));
+        return "wishlists";
+    }
 }

@@ -5,6 +5,7 @@ import com.example.projekt2_gruppe_5.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class WishlistService {
@@ -31,5 +32,11 @@ public class WishlistService {
 
     public Wishlist findById(int id) {
         return wishlistRepository.findById(id);
+    }
+
+    public String createShareToken(int wishlistId) {
+        String token = UUID.randomUUID().toString();
+        wishlistRepository.saveShareToken(wishlistId, token);
+        return token;
     }
 }
