@@ -1,6 +1,7 @@
 package com.example.projekt2_gruppe_5.controller;
 
 import com.example.projekt2_gruppe_5.model.User;
+import com.example.projekt2_gruppe_5.model.Wish;
 import com.example.projekt2_gruppe_5.model.Wishlist;
 import com.example.projekt2_gruppe_5.service.WishService;
 import com.example.projekt2_gruppe_5.service.WishlistService;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class WishlistController {
@@ -69,7 +72,7 @@ public class WishlistController {
         String link = "http://localhost:8080/shared/" + token;
 
         model.addAttribute("shareLink", link);
-        model.addAttribute("wishlists", wishlistService.findById(user.getId()));
+        model.addAttribute("wishlists", wishlistService.findByUserId(user.getId()));
         return "wishlists";
     }
 
@@ -80,6 +83,9 @@ public class WishlistController {
        if (wishlist == null) {
            return "redirect:/login";
        }
+
+       int wishId = wishlist.getId();
+       model.addAttribute("wishes", wishService.findByWishlistId(wishId));
        model.addAttribute("wishlist", wishlist);
        return "shared-wishlist";
     }

@@ -7,6 +7,13 @@
 <main class="container">
     <section class="card">
         <h1 th:text="${wishlist.title}">Titel</h1>
+
+        <p th:if="${#lists.isEmpty(wishes)}">Ingen ønsker endnu</p>
+
+
+        <ul>
+            <li th:each="wish : ${wishes}" th:text="${wish.name}">Ønske</li>
+        </ul>
     </section>
 </main>
 

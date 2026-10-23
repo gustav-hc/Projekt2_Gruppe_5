@@ -25,5 +25,4 @@ public class WishService {
     public List<Wish> findByWishlistId(int wishlistId) {
         return wishRepository.findByWishlistId(wishlistId);
     }
-
 }
