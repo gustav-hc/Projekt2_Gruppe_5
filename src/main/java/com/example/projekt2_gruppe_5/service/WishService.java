@@ -25,4 +25,8 @@ public class WishService {
     public List<Wish> findByWishlistId(int wishlistId) {
         return wishRepository.findByWishlistId(wishlistId);
     }
+
+    public Wish findById(int id) {
+       return wishRepository.findById(id);
+    }
 }

@@ -5,6 +5,7 @@ import com.example.projekt2_gruppe_5.model.Wish;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import javax.xml.catalog.Catalog;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,9 +17,10 @@ import java.util.List;
 public class WishRepository {
     private final DataSource dataSource;
 
-    public WishRepository (DataSource dataSource) {
+    public WishRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
     public void save(Wish wish) {
         String sql = "INSERT INTO wish (name, description, price, link, wishlist_id) VALUES (?,?,?,?,?)";
         try (Connection connection = dataSource.getConnection();
@@ -34,8 +36,9 @@ public class WishRepository {
 
         }
 
-        }
-    public void deleteById (int id) {
+    }
+
+    public void deleteById(int id) {
         String sql = "DELETE FROM wish WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -68,10 +71,10 @@ public class WishRepository {
                 }
             }
         } catch (SQLException e) {
-                throw new RuntimeException("Kunne ikke hente ønsker", e);
-            }
-            return wishes;
+            throw new RuntimeException("Kunne ikke hente ønsker", e);
         }
+        return wishes;
+    }
 
     public int findWishlistIdByUserId(int userId) {
         String sql = "SELECT id FROM wishlist WHERE user_id =? ";
@@ -85,11 +88,38 @@ public class WishRepository {
                 return -1;
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Kunne ikke hente ønskeliste",e);
+            throw new RuntimeException("Kunne ikke hente ønskeliste", e);
         }
-
-        }
-
 
     }
+
+    public Wish findById(int id) {
+        String sql = "SELECT id, name, description, price, link, wishlist_id FROM wish WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            try(ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+
+                    Wish wish = new Wish();
+                    wish.setId(rs.getInt("id"));
+                    wish.setName(rs.getString("name"));
+                    wish.setDescription(rs.getString("description"));
+                    wish.setPrice(rs.getBigDecimal("price"));
+                    wish.setLink(rs.getString("link"));
+                    wish.setWishlistId(rs.getInt("wishlist_id"));
+
+                    return wish;
+                }
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Kunne ikke hente ønske", e);
+        }
+
+    }
+}
 
