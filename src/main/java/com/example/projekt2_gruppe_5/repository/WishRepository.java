@@ -104,7 +104,7 @@ public class WishRepository {
         } catch (SQLException e) {
             throw new RuntimeException("Kunne ikke reservere ønske", e);
         }
-        }
+    }
     public Wish findById(int id) {
         String sql = "SELECT id, name, description, price, link, wishlist_id FROM wish WHERE id = ?";
 
