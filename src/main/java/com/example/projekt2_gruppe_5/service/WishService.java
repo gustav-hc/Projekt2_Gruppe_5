@@ -18,6 +18,14 @@ public class WishService {
         if (wish.getName() == null || wish.getName().isBlank()) {
             return false;
         }
+        if (wish.getDescription() == null || wish.getDescription().isEmpty()) {
+            wish.setDescription(null);
+        }
+
+        if (wish.getLink().isEmpty()) {
+            wish.setLink(null);
+        }
+
         wishRepository.save(wish);
         return true;
     }

@@ -137,6 +137,7 @@ public class WishlistController {
        int wishId = wishlist.getId();
        model.addAttribute("wishes", wishService.findByWishlistId(wishId));
        model.addAttribute("wishlist", wishlist);
+       model.addAttribute("token", token);
        return "shared-wishlist";
     }
 
@@ -153,8 +154,13 @@ public class WishlistController {
             return "redirect:/shared/" + token;
         }
 
-        model.addAttribute("wish", wish);
+        if (wish.getWishlistId() == wishlist.getId()) {
+            model.addAttribute("wish", wish);
+            model.addAttribute("wishlist", wishlist);
+            model.addAttribute("token", token);
 
-        return "";
+            return "shared-wish";
+        }
+        return "redirect:/shared/" + token;
     }
 }

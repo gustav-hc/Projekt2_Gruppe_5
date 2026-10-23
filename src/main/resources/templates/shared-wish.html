@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Ønske')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="container">
+    <section class="card">
+        <h1 th:text="${wish.name}">Navn</h1>
+
+        <span th:if="${wish.price != null}" th:text="${wish.price} + ' kr'">Pris</span>
+
+        <p th:if="${wish.description != null}" th:text="${wish.description}">Beskrivelse</p>
+
+        <a th:if="${wish.link != null}" th:href="${wish.link}">Gå til produktets side</a>
+
+        <a th:href="@{/shared/{token}(token=${token})}">Tilbage</a>
+
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

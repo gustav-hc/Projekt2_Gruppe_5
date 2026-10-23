@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('Log ind')}"></head>
+<head th:replace="~{fragments/layout :: head('Delt ønskeseddel')}"></head>
 <body>
 <header th:replace="~{fragments/layout :: header}"></header>
 
@@ -10,11 +10,10 @@
 
         <p th:if="${#lists.isEmpty(wishes)}">Ingen ønsker endnu</p>
 
-
         <ul>
             <li th:each="wish : ${wishes}">
-                <strong th:text="${wish.name}">Navn</strong>
-                <span th:text="${wish.price} + ' kr.'">Pris</span>
+                 <a th:text="${wish.name}" th:href="@{/shared/{token}/wishes/{id}(token=${token}, id=${wish.id})}" ></a>
+                <span th:if="${wish.price != null}" th:text="${wish.price} + ' kr.'">Pris</span>
             </li>
         </ul>
     </section>
