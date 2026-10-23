@@ -60,9 +60,9 @@ public class WishController {
             return "redirect:/wishlists";
         }
 
-            model.addAttribute("error", "mangler navn");
-            model.addAttribute("wishlistId", wishlistId);
-            return "wish-form";
+        model.addAttribute("error", "mangler navn");
+        model.addAttribute("wishlistId", wishlistId);
+        return "wish-form";
     }
 
     @PostMapping("/shared/{token}/wishes/{wishId}/reserve")
