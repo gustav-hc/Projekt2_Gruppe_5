@@ -22,8 +22,11 @@
         <p th:if="${#lists.isEmpty(wishlists)}">Du har ingen ønskesedler endnu.</p>
 
         <ul class="wishlist-list">
-            <li th:each="wishlist : ${wishlists}">
-                <a th:href="@{/wishlists/{id}(id=${wishlist.id})}" th:text="${wishlist.title}">Titel</a>
+            <li class="wishlist-card" th:each="wishlist : ${wishlists}">
+                <span class="wishlist-icon">★</span>
+                <a class="wishlist-title"
+                   th:href="@{/wishlists/{id}(id=${wishlist.id})}"
+                   th:text="${wishlist.title}">Titel</a>
                 <form th:action="@{/wishlists/{id}/share(id=${wishlist.id})}" method="post">
                     <button type="submit" class="btn-share">Del</button>
                 </form>
