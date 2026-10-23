@@ -77,3 +77,24 @@ input:focus { outline: 2px solid var(--sky); border-color: var(--sky); }
 .error { color: var(--error); font-weight: 600; }
 
 .site-footer { text-align: center; padding: 1rem; color: #6b7a8c; }
+
+.btn-share {
+    padding: 0.4rem 1rem;
+    background: transparent;
+    color: var(--sky-dark);
+    border: 2px solid var(--sky);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-share:hover {
+    background: var(--sky);
+    color: white;
+}
+
+.btn-share:focus-visible {
+    outline: 2px solid var(--sky-dark);
+    outline-offset: 2px;
+}
