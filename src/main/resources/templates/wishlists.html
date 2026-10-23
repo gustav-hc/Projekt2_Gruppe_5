@@ -23,7 +23,7 @@
 
         <ul class="wishlist-list">
             <li class="wishlist-card" th:each="wishlist : ${wishlists}">
-                <span class="wishlist-icon">★</span>
+                <span class="wishlist-icon">☁️</span>
                 <a class="wishlist-title"
                    th:href="@{/wishlists/{id}(id=${wishlist.id})}"
                    th:text="${wishlist.title}">Titel</a>
