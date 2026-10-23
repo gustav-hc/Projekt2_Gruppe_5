@@ -72,4 +72,15 @@ public class WishlistController {
         model.addAttribute("wishlists", wishlistService.findById(user.getId()));
         return "wishlists";
     }
+
+    @GetMapping("/shared/{token}")
+    public String showSharedWishList(@PathVariable String token,
+                                     Model model) {
+       Wishlist wishlist = wishlistService.findByShareToken(token);
+       if (wishlist == null) {
+           return "redirect:/login";
+       }
+       model.addAttribute("wishlist", wishlist);
+       return "shared-wishlist";
+    }
 }
