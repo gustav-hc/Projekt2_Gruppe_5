@@ -12,7 +12,10 @@
 
 
         <ul>
-            <li th:each="wish : ${wishes}" th:text="${wish.name}">Ønske</li>
+            <li th:each="wish : ${wishes}">
+                <strong th:text="${wish.name}">Navn</strong>
+                <span th:text="${wish.price} + ' kr.'">Pris</span>
+            </li>
         </ul>
     </section>
 </main>
