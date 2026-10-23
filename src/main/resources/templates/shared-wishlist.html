@@ -11,10 +11,18 @@
         <p th:if="${#lists.isEmpty(wishes)}">Ingen ønsker endnu</p>
 
 
-        <ul>
-            <li th:each="wish : ${wishes}">
+        <ul class="wish-list">
+            <li class="wish-item" th:each="wish : ${wishes}">
                 <strong th:text="${wish.name}">Navn</strong>
-                <span th:text="${wish.price} + ' kr.'">Pris</span>
+                <span th:if="${wish.price != null}" th:text="${wish.price} + ' kr.'">Pris</span>
+
+                <span th:if="${wish.reserved}" class="reserved-badge">Reserveret</span>
+
+                <form th:unless="${wish.reserved}"
+                      th:action="@{/shared/{token}/wishes/{id}/reserve(token=${wishlist.shareToken}, id=${wish.id})}"
+                      method="post">
+                    <button type="submit" class="btn btn-small">Reservér</button>
+                </form>
             </li>
         </ul>
     </section>
