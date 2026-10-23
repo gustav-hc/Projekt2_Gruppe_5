@@ -25,5 +25,14 @@ public class WishService {
     public List<Wish> findByWishlistId(int wishlistId) {
         return wishRepository.findByWishlistId(wishlistId);
     }
+    public boolean reserveWish(int wishlistId, int wishId) {
+        boolean belongsToList = wishRepository.findByWishlistId(wishlistId)
+                .stream()
+                .anyMatch(w -> w.getId() == wishId);
+        if (!belongsToList) {
+            return false;
+        }
+        return wishRepository.reserve(wishId);
+    }
 
 }

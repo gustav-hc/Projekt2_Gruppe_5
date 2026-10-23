@@ -39,4 +39,8 @@ public class WishlistService {
         wishlistRepository.saveShareToken(wishlistId, token);
         return token;
     }
+
+    public Wishlist findByShareToken(String token) {
+        return wishlistRepository.findByShareToken(token);
+    }
 }

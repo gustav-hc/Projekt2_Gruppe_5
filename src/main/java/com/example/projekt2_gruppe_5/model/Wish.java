@@ -9,6 +9,7 @@ public class Wish {
     private  BigDecimal price;
     private String link;
     private int wishlistId;
+    private boolean reserved;
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -27,5 +28,8 @@ public class Wish {
 
     public int getWishlistId() { return wishlistId; }
     public void setWishlistId(int wishlistId) { this.wishlistId = wishlistId; }
+
+    public boolean isReserved() { return reserved; }
+    public void setReserved(boolean reserved) { this.reserved = reserved; }
 }
 

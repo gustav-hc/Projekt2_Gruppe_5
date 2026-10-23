@@ -2,7 +2,10 @@ package com.example.projekt2_gruppe_5.controller;
 
 import com.example.projekt2_gruppe_5.model.User;
 import com.example.projekt2_gruppe_5.model.Wish;
+import com.example.projekt2_gruppe_5.model.Wishlist;
+import com.example.projekt2_gruppe_5.repository.WishlistRepository;
 import com.example.projekt2_gruppe_5.service.WishService;
+import com.example.projekt2_gruppe_5.service.WishlistService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +19,11 @@ import java.math.BigDecimal;
 @Controller
 public class WishController {
     private final WishService wishService;
+    private final WishlistService wishlistService;
 
-    public WishController(WishService wishService) {
+    public WishController(WishService wishService, WishlistService wishlistService) {
         this.wishService = wishService;
+        this.wishlistService = wishlistService;
     }
 
     @GetMapping("/wishlists/{wishlistId}/wishes/new")
@@ -59,4 +64,15 @@ public class WishController {
             model.addAttribute("wishlistId", wishlistId);
             return "wish-form";
     }
-}
+
+    @PostMapping("/shared/{token}/wishes/{wishId}/reserve")
+    public String reserveWish(@PathVariable String token, @PathVariable int wishId) {
+        Wishlist wishlist = wishlistService.findByShareToken(token);
+        if (wishlist == null) {
+            return "redirect:/login";
+        }
+        wishService.reserveWish(wishlist.getId(), wishId);
+        return "redirect:/shared/" + token;
+    }
+    }
+

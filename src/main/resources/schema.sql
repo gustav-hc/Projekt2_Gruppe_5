@@ -23,8 +23,13 @@ CREATE TABLE wish (
                       description VARCHAR(500),
                       price DECIMAL(10,2),
                       link VARCHAR(500),
+                      reserved BOOLEAN NOT NULL DEFAULT FALSE,
                       wishlist_id INT NOT NULL,
                       FOREIGN KEY (wishlist_id) REFERENCES wishlist(id) ON DELETE CASCADE
+
+
+
+
 );
 
 SELECT * FROM users;

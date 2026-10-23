@@ -39,15 +39,15 @@ public class WishlistRepository {
     }
 
 
-    public void save(Wishlist wishlist){
-        String sql ="INSERT INTO wishlist (title, user_id) VALUES (?, ?)";
+    public void save(Wishlist wishlist) {
+        String sql = "INSERT INTO wishlist (title, user_id) VALUES (?, ?)";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, wishlist.getTitle());
             ps.setInt(2, wishlist.getUserId());
             ps.executeUpdate();
-        }  catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Kunne ikke gemme ønskeseddel", e);
         }
     }
@@ -102,7 +102,7 @@ public class WishlistRepository {
         String sql = "UPDATE wishlist SET share_token = ? WHERE id = ?";
 
         try (Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, token);
             ps.setInt(2, wishlistId);
@@ -113,4 +113,4 @@ public class WishlistRepository {
         }
     }
 
-}
+    }

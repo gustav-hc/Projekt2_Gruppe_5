@@ -16,9 +16,10 @@ import java.util.List;
 public class WishRepository {
     private final DataSource dataSource;
 
-    public WishRepository (DataSource dataSource) {
+    public WishRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
     public void save(Wish wish) {
         String sql = "INSERT INTO wish (name, description, price, link, wishlist_id) VALUES (?,?,?,?,?)";
         try (Connection connection = dataSource.getConnection();
@@ -34,8 +35,9 @@ public class WishRepository {
 
         }
 
-        }
-    public void deleteById (int id) {
+    }
+
+    public void deleteById(int id) {
         String sql = "DELETE FROM wish WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -63,15 +65,16 @@ public class WishRepository {
                     wish.setPrice(resultSet.getBigDecimal("price"));
                     wish.setLink(resultSet.getString("link"));
                     wish.setWishlistId(resultSet.getInt("wishlist_id"));
+                    wish.setReserved(resultSet.getBoolean("reserved"));
                     wishes.add(wish);
 
                 }
             }
         } catch (SQLException e) {
-                throw new RuntimeException("Kunne ikke hente ønsker", e);
-            }
-            return wishes;
+            throw new RuntimeException("Kunne ikke hente ønsker", e);
         }
+        return wishes;
+    }
 
     public int findWishlistIdByUserId(int userId) {
         String sql = "SELECT id FROM wishlist WHERE user_id =? ";
@@ -85,11 +88,23 @@ public class WishRepository {
                 return -1;
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Kunne ikke hente ønskeliste",e);
+            throw new RuntimeException("Kunne ikke hente ønskeliste", e);
         }
 
+    }
+
+    public boolean reserve(int wishId) {
+        String sql = "UPDATE wish SET reserved = TRUE WHERE id = ? AND reserved = FALSE";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, wishId);
+            int changedRows = preparedStatement.executeUpdate();
+            return changedRows > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Kunne ikke reservere ønske", e);
         }
 
 
     }
+}
 
