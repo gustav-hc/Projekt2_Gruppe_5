@@ -16,7 +16,7 @@
                 <span th:if="${wish.price != null}" th:text="${wish.price} + ' kr.'">Pris</span>
             </li>
         </ul>
-
+        <a th:href="@{/wishlists/{id}/wishes/new(id=${wishlist.id})}" class="btn">Tilføj ønske</a>
         <a th:href="@{/wishlists}" class="btn">Tilbage til mine ønskesedler</a>
     </section>
 </main>
