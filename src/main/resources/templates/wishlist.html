@@ -10,10 +10,21 @@
 
         <p th:if="${#lists.isEmpty(wishes)}">Der er ingen ønsker på sedlen endnu.</p>
 
-        <ul>
+        <ul class="wish-list">
             <li th:each="wish : ${wishes}">
-                <strong th:text="${wish.name}">Navn</strong>
-                <span th:if="${wish.price != null}" th:text="${wish.price} + ' kr.'">Pris</span>
+                <details class="wish-item">
+                    <summary th:text="${wish.name}">Navn</summary>
+                    <div class="wish-body">
+                        <p th:if="${wish.description != null and !#strings.isEmpty(wish.description)}"
+                           th:text="${wish.description}">Beskrivelse</p>
+                        <p th:if="${wish.price != null}" class="wish-price">
+                            Pris: <span th:text="${wish.price}">199</span> kr.
+                        </p>
+                        <a th:if="${wish.link != null and (#strings.startsWith(wish.link, 'http://') or #strings.startsWith(wish.link, 'https://'))}"
+                           th:href="${wish.link}" target="_blank" rel="noopener noreferrer"
+                           class="btn btn-buy">Køb her</a>
+                    </div>
+                </details>
             </li>
         </ul>
         <a th:href="@{/wishlists/{id}/wishes/new(id=${wishlist.id})}" class="btn">Tilføj ønske</a>
