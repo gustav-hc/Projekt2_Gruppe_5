@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import java.math.BigDecimal;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class WishController {
@@ -66,13 +70,42 @@ public class WishController {
     }
 
     @PostMapping("/shared/{token}/wishes/{wishId}/reserve")
-    public String reserveWish(@PathVariable String token, @PathVariable int wishId) {
+    public String reserveWish(@PathVariable String token,
+                              @PathVariable int wishId,
+                              HttpSession session) {
         Wishlist wishlist = wishlistService.findByShareToken(token);
         if (wishlist == null) {
             return "redirect:/login";
         }
-        wishService.reserveWish(wishlist.getId(), wishId);
+        if (wishService.reserveWish(wishlist.getId(), wishId)) {
+            getMyReservations(session).add(wishId);
+        }
         return "redirect:/shared/" + token;
     }
+    @PostMapping ("/shared/{token}/wishes/{wishId}/unreserve")
+    public String unreserveWish(@PathVariable String token,
+                                @PathVariable int wishId,
+                                HttpSession session) {
+        Wishlist wishlist = wishlistService.findByShareToken(token);
+        if (wishlist == null) {
+            return "redirect:/login";
+        }
+        Set<Integer> mine = getMyReservations(session);
+        if (mine.contains(wishId) && wishService.unreserveWish(wishlist.getId(), wishId)) {
+            mine.remove(wishId);
+        }
+        return "redirect:/shared/" + token;
     }
+
+    @SuppressWarnings("unchecked")
+    private Set<Integer> getMyReservations(HttpSession session) {
+        Set<Integer> ids = (Set<Integer>) session.getAttribute("myReservations");
+        if (ids == null) {
+            ids = new HashSet<>();
+            session.setAttribute("myReservations", ids);
+        }
+        return ids;
+    }
+    }
+
 

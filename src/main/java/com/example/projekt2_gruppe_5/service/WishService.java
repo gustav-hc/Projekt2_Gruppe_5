@@ -46,4 +46,14 @@ public class WishService {
     public Wish findById(int id) {
        return wishRepository.findById(id);
     }
+
+    public boolean unreserveWish(int wishlistId, int wishId) {
+        boolean belongsToList = wishRepository.findByWishlistId(wishlistId)
+                .stream()
+                .anyMatch(wish -> wish.getId() == wishId);
+        if (!belongsToList) {
+            return false;
+        }
+        return wishRepository.unreserve(wishId);
+    }
 }

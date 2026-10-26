@@ -128,7 +128,8 @@ public class WishlistController {
 
     @GetMapping("/shared/{token}")
     public String showSharedWishList(@PathVariable String token,
-                                     Model model) {
+                                     Model model,
+                                     HttpSession session) {
        Wishlist wishlist = wishlistService.findByShareToken(token);
        if (wishlist == null) {
            return "redirect:/login";
@@ -138,6 +139,8 @@ public class WishlistController {
        model.addAttribute("wishes", wishService.findByWishlistId(wishId));
        model.addAttribute("wishlist", wishlist);
        model.addAttribute("token", token);
+        model.addAttribute("myReservations", session.getAttribute("myReservations"));
+
        return "shared-wishlist";
     }
 
