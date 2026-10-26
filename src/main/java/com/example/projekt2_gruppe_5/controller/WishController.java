@@ -34,6 +34,11 @@ public class WishController {
         if (user == null) {
             return "redirect:/login";
         }
+
+        Wishlist wishlist = wishlistService.findById(wishlistId);
+        if (wishlist == null || wishlist.getUserId() != user.getId()) {
+            return "redirect:/wishlists";
+        }
         model.addAttribute("wishlistId", wishlistId);
         return "wish-form";
     }
@@ -56,6 +61,12 @@ public class WishController {
         if (user == null) {
             return "redirect:/login";
         }
+
+        Wishlist wishlist = wishlistService.findById(wishlistId);
+        if (wishlist == null || wishlist.getUserId() != user.getId()) {
+            return "redirect:/wishlists";
+        }
+
         if (wishService.addWish(wish)) {
             return "redirect:/wishlists";
         }
