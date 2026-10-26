@@ -133,5 +133,18 @@ public class WishRepository {
         }
 
     }
+
+    public boolean unreserve(int wishId) {
+        String sql = "UPDATE wish SET reserved = FALSE WHERE id = ? AND reserved = TRUE";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, wishId);
+            int changedRows = preparedStatement.executeUpdate();
+            return changedRows > 0;
+
+        }catch (SQLException e) {
+            throw new RuntimeException("Kunne ikke fjerne reservation", e);
+        }
+    }
 }
 
