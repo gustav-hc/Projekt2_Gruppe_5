@@ -386,3 +386,52 @@ input[readonly] {
 .site-footer p {
     margin: 0;
 }
+
+.shared-wish-item {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    padding: 0.9rem 1.1rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.shared-wish-item a {
+    flex: 1;
+    min-width: 8rem;
+    font-weight: 700;
+    color: var(--navy);
+    text-decoration: none;
+}
+
+.shared-wish-item a:hover {
+    text-decoration: underline;
+}
+
+.shared-wish-item form {
+    margin: 0;
+}
+
+.shared-wish-item .btn-small {
+    color: var(--sky-dark) !important;
+    background: #ffffff;
+    border-color: var(--sky);
+}
+
+.shared-wish-item .btn-small:hover {
+    color: #ffffff !important;
+    background: var(--sky-dark);
+    border-color: var(--sky-dark);
+}
+
+.reserved-badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    color: var(--error);
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: var(--error-bg);
+    border-radius: 8px;
+}
