@@ -4,15 +4,38 @@
 <body>
 <header th:replace="~{fragments/layout :: header}"></header>
 
+<section class="gift">
+    <h1>Drøm det. Del det. Få det.</h1>
+    <p>Saml alle dine ønsker ét sted, og del dem med familie og venner, så de ved, hvad du helst vil have.</p>
+</section>
+
 <main class="container">
     <section class="card">
-        <h1>Velkommen til WishCloud</h1>
+        <h2>Sådan virker det</h2>
 
-        <ul>
-            <li th:each="user : ${users}" th:text="${user.name}">Navn</li>
+        <ul class="wishlist-list" style="margin-top: 1rem;">
+            <li class="wishlist-card">
+                <span class="wishlist-icon">1</span>
+                <div>
+                    <strong>Opret din ønskeseddel</strong>
+                    <p style="margin: 0;">Giv den en titel, og tilføj dine ønsker med pris og link.</p>
+                </div>
+            </li>
+            <li class="wishlist-card">
+                <span class="wishlist-icon">2</span>
+                <div>
+                    <strong>Del linket</strong>
+                    <p style="margin: 0;">Send et unikt link, så andre kan se din seddel uden at logge ind.</p>
+                </div>
+            </li>
+            <li class="wishlist-card">
+                <span class="wishlist-icon">3</span>
+                <div>
+                    <strong>Lad andre reservere</strong>
+                    <p style="margin: 0;">Gæster kan reservere et ønske, så ingen giver det samme.</p>
+                </div>
+            </li>
         </ul>
-
-
     </section>
 </main>
 

@@ -238,8 +238,9 @@ input[readonly] {
     align-items: center;
     justify-content: center;
     font-size: 1.15rem;
-    color: var(--navy);
-    background: var(--gold);
+    font-weight: 700;
+    color: #ffffff;
+    background: var(--sky-dark);
     border-radius: 50%;
 }
 
@@ -434,4 +435,40 @@ input[readonly] {
     font-size: 0.9rem;
     background: var(--error-bg);
     border-radius: 8px;
+}
+
+.gift {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 380px;
+    padding: 3rem 1rem;
+    text-align: center;
+    color: #ffffff;
+    background:
+            linear-gradient(rgba(27, 58, 92, 0.65), rgba(27, 58, 92, 0.65)),
+            url("images/gift.jpg") center / cover no-repeat;
+}
+
+.gift h1 {
+    color: #ffffff;
+    font-size: 2.75rem;
+}
+
+.gift p {
+    max-width: 36rem;
+    margin: 0 auto 0.5rem;
+    font-size: 1.15rem;
+}
+
+.gift .btn {
+    color: var(--navy);
+    background: #ffffff;
+    border-color: #ffffff;
+}
+
+.gift .btn:hover {
+    background: var(--bg);
+    border-color: var(--bg);
 }
