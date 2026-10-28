@@ -27,7 +27,6 @@ body {
     line-height: 1.5;
     color: var(--text);
     background: linear-gradient(180deg, var(--bg) 0%, #ffffff 70%) no-repeat;
-    background-color: var(--bg);
 }
 
 h1 {
