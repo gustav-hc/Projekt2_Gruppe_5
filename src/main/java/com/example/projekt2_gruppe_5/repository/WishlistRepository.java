@@ -1,6 +1,5 @@
 package com.example.projekt2_gruppe_5.repository;
 
-import com.example.projekt2_gruppe_5.model.Wish;
 import com.example.projekt2_gruppe_5.model.Wishlist;
 import org.springframework.stereotype.Repository;
 

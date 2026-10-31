@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 
 @Controller
 public class WishlistController {
@@ -130,18 +129,18 @@ public class WishlistController {
     public String showSharedWishList(@PathVariable String token,
                                      Model model,
                                      HttpSession session) {
-       Wishlist wishlist = wishlistService.findByShareToken(token);
-       if (wishlist == null) {
-           return "redirect:/login";
-       }
+        Wishlist wishlist = wishlistService.findByShareToken(token);
+        if (wishlist == null) {
+            return "redirect:/login";
+        }
 
-       int wishId = wishlist.getId();
-       model.addAttribute("wishes", wishService.findByWishlistId(wishId));
-       model.addAttribute("wishlist", wishlist);
-       model.addAttribute("token", token);
+        int wishId = wishlist.getId();
+        model.addAttribute("wishes", wishService.findByWishlistId(wishId));
+        model.addAttribute("wishlist", wishlist);
+        model.addAttribute("token", token);
         model.addAttribute("myReservations", session.getAttribute("myReservations"));
 
-       return "shared-wishlist";
+        return "shared-wishlist";
     }
 
     @GetMapping("/shared/{token}/wishes/{id}")

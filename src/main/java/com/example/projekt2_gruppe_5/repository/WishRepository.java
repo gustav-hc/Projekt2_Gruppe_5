@@ -5,7 +5,6 @@ import com.example.projekt2_gruppe_5.model.Wish;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import javax.xml.catalog.Catalog;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
